@@ -1,0 +1,14 @@
+rule lockbit_clsids
+{
+	meta:
+		author = "Albert Zsigovits, SophosLabs"
+
+	strings:
+		$id1 = "{3E5FC7F9-9A51-4367-9063-A120244FBEC7}" ascii wide
+		$id2 = "{D2E7041B-2927-42fb-8E9F-7CE93B6DC937}" ascii wide
+		$id3 = "{02B49784-1CA2-436C-BC08-72FA3956507D}" ascii wide
+		$id4 = "{BEF590BE-11A6-442A-A85B-656C1081E04C}" ascii wide
+
+	condition:
+		3 of them
+}

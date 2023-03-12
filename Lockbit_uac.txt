@@ -1,0 +1,13 @@
+rule lockbit_uac
+{
+	meta:
+		author = "Albert Zsigovits, SophosLabs"	
+
+	strings:
+		$uac0 = "Elevation:Administrator!new:" ascii wide
+		$uac1 = "DisplayCalibrator" ascii wide
+		$uac2 = "Software\Microsoft\Windows NT\CurrentVersion\ICM\Calibration" ascii wide
+
+	condition:
+		all of them
+}

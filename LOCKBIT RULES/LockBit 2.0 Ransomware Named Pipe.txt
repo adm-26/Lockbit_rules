@@ -1,0 +1,25 @@
+title: LockBit 2.0 Ransomware Named Pipe
+status: experimental
+description: Detects the creation of a named pipe as used by LockBit 2.0 ransomware
+references:
+- https://www.ic3.gov/Media/News/2022/220204.pdf
+date: 2022/02/06
+
+tags:
+- attack.defense_evasion
+- attack.privilege_escalation
+- attack.T1486
+logsource:
+  product: windows
+  category: pipe_created
+detection:
+  selection:
+    PipeName|contains|all:
+    - STEALBIT-
+    - MASTER-
+    - PIPE
+  condition: selection
+falsepositives:
+- Unknown
+level: critical
+id: 933038af-091f-47e9-9c30-3041772dfa4a

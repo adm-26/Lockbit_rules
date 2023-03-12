@@ -1,0 +1,36 @@
+title: LockBit 2.0 Ransomware Force GPO Policy (via process_creation)
+description: This rule detects suspicious powershell command of Lockbit 2.0 attempt to force GPO policy on system.
+date: 2022/02/07
+author: Nattatorn Chuensangarun
+status: stable
+references:
+- https://www.ic3.gov/Media/News/2022/220204.pdf
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: 'powershell.exe'
+    CommandLine|contains|all: 
+    - '-Command'
+    - 'Get-ADComputer'
+    - '-filter'
+    - '-Searchbase'
+    - '%s'
+    - 'foreach'
+    - 'Invoke-GPUpdate'
+    - '-computer'
+    - '$_.name'
+    - '-force'
+    - '-RandomDelayInMinutes'
+  condition: selection
+fields:
+- Image
+- CommandLine
+falsepositives:
+- unlikely
+level: medium
+tags:
+- attack.T1190
+- attack.T1486
+id: 7efee687-473c-4770-a0c8-21b65e13626d
